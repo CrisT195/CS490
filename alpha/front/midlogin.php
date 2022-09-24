@@ -1,13 +1,13 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input field
-    $name = $_POST['name'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
     // Url to change later
     $url = "https://afsaccess4.njit.edu/~bjb38/CS490/testb.php";
     // Fields array to collect the previous information
     $fields = [
-        'name' => $name,
+        'username' => $username,
         'password' => $password
     ];
     // Builds into a string from the array
