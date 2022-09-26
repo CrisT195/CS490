@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 
-<div class="container" style="padding: 50px 25px 75px">
+
+<div class="container" style="padding: 80px 25px 75px">
+ <h1>CS 490</h1>
  <form method="POST">
   <div class="form-group">
    <label for="username">Username:</label>
@@ -15,6 +17,7 @@
  </form>
  
 </div>
+
 
 <?php
 if (isset($_POST["username"]) && isset($_POST["password"])){
@@ -35,12 +38,18 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
  echo "<br />";
  $decoded_json = json_decode($result, true);
  var_dump($data);
- if ($decoded_json['role'] == "student") {
+ if ($decoded_json['pass'] == $password && $decoded_json['role'] == "student") {
   // generate portal dashboard
- } else if ($decoded_json['role'] == "teacher") {
+ } else if ($decoded_json['pass'] == $password && $decoded_json['role'] == "teacher") {
   // generate portal dashboard
  } else {
-  // push warning
+  echo '<div class="container" id="flash" class="row bg-secondary justify-content-center">
+   <div style="position: absolute; top: 40px; padding: 10px;">
+    <p>Invalid Credentials</p>
+   </div>
+  </div>';
  }
+
+ curl_close($ch);
 }
 ?>
