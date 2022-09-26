@@ -38,6 +38,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
  curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  $result = curl_exec($ch);
+ curl_close($ch);
  echo $result;
  echo "<br />";
  $decoded_json = json_decode($result, true);
@@ -63,6 +64,5 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
   </div>';
  }
 
- curl_close($ch);
 }
 ?>
