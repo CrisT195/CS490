@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     // Url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/testb.php";
+    $url = "https://afsaccess4.njit.edu/~nk553/CS490/backend.php";
     // Fields array to collect the previous information
     $fields = [
         'username' => $username,
