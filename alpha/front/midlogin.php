@@ -7,8 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $url = "https://afsaccess4.njit.edu/~nk553/CS490/backend.php";
     // Fields array to collect the previous information
     $fields = [
-        'username' => $username,
-        'password' => $password
+        "username" => $username,
+        "password" => $password
     ];
     // Builds into a string from the array
     $fields_string = http_build_query($fields);
