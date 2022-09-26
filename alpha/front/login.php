@@ -1,6 +1,10 @@
+<?php 
+session_start();
+$user = array('role', 'name', 'username');
+$_SESSION["user"] = $user;
+?>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-
 
 <div class="container" style="padding: 80px 25px 75px">
  <h1>CS 490</h1>
@@ -38,14 +42,19 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
  echo "<br />";
  $decoded_json = json_decode($result, true);
  var_dump($data);
- if ($decoded_json['pass'] == $password && $decoded_json['role'] == "student") {
-  $studentdashboard = "<h1>Student Dashboard</h1>";
-  $file = fopen("student-view.php", "x");
-  fwrite($file, $studentdashboard);
- } else if ($decoded_json['pass'] == $password && $decoded_json['role'] == "teacher") {
-  $teacherdashboard = "<h1>Teacher Dashboard</h1>";
-  $file = fopen("teacher-view.php", "x");
-  fwrite($file, $teacherdashboard);
+ if ($decoded_json['role'] == "student") {
+  $_SESSION["user"]["role"] = "student";
+  $_SESSION["user"]["name"] = $decoded_json['name'];
+  // var_dump($_SESSION);
+  echo '<script>window.location.href="home.php"</script>';
+  die();
+  
+ } else if ($decoded_json['role'] == "teacher") {
+  $_SESSION["user"]["role"] = "teacher";
+  $_SESSION["user"]["name"] = $decoded_json['name'];
+  echo '<script>window.location.href="home.php"</script>';
+  die();
+
  } else {
   echo '<div class="container" id="flash" class="row bg-secondary justify-content-center">
    <div style="position: absolute; top: 40px; padding: 10px;">
