@@ -39,9 +39,13 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
  $decoded_json = json_decode($result, true);
  var_dump($data);
  if ($decoded_json['pass'] == $password && $decoded_json['role'] == "student") {
-  // generate portal dashboard
+  $studentdashboard = "<h1>Student Dashboard</h1>";
+  $file = fopen("student-view.php", "x");
+  fwrite($file, $studentdashboard);
  } else if ($decoded_json['pass'] == $password && $decoded_json['role'] == "teacher") {
-  // generate portal dashboard
+  $teacherdashboard = "<h1>Teacher Dashboard</h1>";
+  $file = fopen("teacher-view.php", "x");
+  fwrite($file, $teacherdashboard);
  } else {
   echo '<div class="container" id="flash" class="row bg-secondary justify-content-center">
    <div style="position: absolute; top: 40px; padding: 10px;">
