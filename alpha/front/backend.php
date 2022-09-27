@@ -21,8 +21,8 @@
     //inserting generic data
     $sql2 = "INSERT INTO Logins (user, pass, position)
     VALUES 
-    ('student300', 'studentpassword300', 'student'),
-    ('teacher200', 'teacherpassword300', 'teacher')";
+    ('student300', 'ad335b5876f05f53d8635267d11a3255', 'student'),
+    ('teacher200', 'f0f7816b455f0b5069f3326fc886a4be', 'teacher')";
     $connect->query($sql2);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,21 +38,18 @@
         $result = $connect->query($sql3);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if (md5($row["pass"]) == $pass) {
+            if ($row["pass"] == $pass) {
                 $fields['role'] = $row["position"];
                 $fields['name'] = $row["user"];
-                echo $fields;
             }
             else {
                 $fields['role'] = "undefined";
                 $fields['name'] = $row["user"];
-                echo $fields;
             }
         }
         else {
             $fields['role'] = "undefined";
             $fields['name'] = "undefined";
-            echo $fields;
         }
 
         //echo parsed JSON array
