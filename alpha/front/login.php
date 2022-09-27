@@ -39,10 +39,8 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  $result = curl_exec($ch);
  curl_close($ch);
- echo $result;
- echo "<br />";
  $decoded_json = json_decode($result, true);
- var_dump($data);
+ // var_dump($decoded_json);
  if ($decoded_json['role'] == "student") {
   $_SESSION["user"]["role"] = "student";
   $_SESSION["user"]["name"] = $decoded_json['name'];
