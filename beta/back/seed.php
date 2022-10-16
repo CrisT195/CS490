@@ -31,9 +31,10 @@
     $connect->query($sql2);
 
 
-    $sql3 = "INSERT INTO Questionbank (question, difficulty, category)
+    $sql3 = "INSERT INTO Questionbank (question, difficulty, category, testcase1, testcase2, output1, output2)
      VALUES
-    ('Create a function to make a conditional.', 'Easy', 'Conditionals')";
+    ('Define hi', 'Easy', 'Loops', 'hi(1) == 0', 'hi(0) == 1', '1', '0');
+    ";
     $connect->query($sql3);
     
     $sql4 ="INSERT INTO Exam (questionId, pnts, testcase1, testcase2, output1, output2, examnum)
