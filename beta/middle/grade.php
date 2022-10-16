@@ -67,7 +67,8 @@ while ($questionindex < $questions) {
     $command = escapeshellcmd($command);
     exec($command, $out, $status);
     foreach($out as $answer) {
-        // False and True evaluate to True in php, so this converts it to real true/false
+        // False and True evaluate to True in php,
+        // so this converts it to real true/false
         if (filter_var($answer, FILTER_VALIDATE_BOOLEAN)) {
             $studentpoints += $testcasepoints;
         }
