@@ -1,4 +1,10 @@
 <?php
+// grade.php file is used to grade the student responses
+
+// It takes json for all the student responses and
+// returns a string for the output of the student's answers
+
+
 // Remove all of the newline echos
 
 // You'll need to decode the json
