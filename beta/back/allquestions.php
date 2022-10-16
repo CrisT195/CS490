@@ -1,5 +1,5 @@
 <?php
-    // This is the file for the starting student dashboard to check published results based on the student
+    // This is the file for the getting all questions
 
     // Establishing connection to SQL server
     $servername = "sql1.njit.edu";
@@ -12,16 +12,13 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Passed values
-        $user = $_POST['username'];
-        
         // Establishing variables
         $fields = array();
 
-        $sql3 = "SELECT * FROM Responses WHERE status = 'published' AND studentId = '$user'";
+        $sql3 = "SELECT * FROM Questionbank";
         $result = $connect->query($sql3);
         if ($result->num_rows > 0) {
-            $rows = $result->fetch_all();
+            $rows = $result->fetch_all(MYSQLI_ASSOC);
             $fields = $rows;
         }
 
