@@ -13,7 +13,7 @@
     if ($connect->connect_error) {
         die("Connection failed: " . $connect->connect_error);
     }
-    //creating table
+    // Creating first table - not really needed
     $sql = "CREATE TABLE IF NOT EXISTS Logins (
         id INT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         user VARCHAR(30) NOT NULL,
@@ -33,18 +33,17 @@
 
     $sql3 = "INSERT INTO Questionbank (question, difficulty, category, testcase1, testcase2, output1, output2)
      VALUES
-    ('Define hi', 'Easy', 'Loops', 'hi(1) == 0', 'hi(0) == 1', '1', '0');
-    ";
+    ('Define hi', 'Easy', 'Loops', 'hi(1) == 0', 'hi(0) == 1', '1', '0')";
     $connect->query($sql3);
     
-    $sql4 ="INSERT INTO Exam (questionId, pnts, testcase1, testcase2, output1, output2, examnum)
+    $sql4 ="INSERT INTO Exam (questionId, pnts, examnum)
      VALUES
-    ('1', '15', 'hi(1) == 0', 'hi(2) == 1', '1', '0', '1')";
+    ('20', '15', '1')";
     $connect->query($sql4);
 
     $sql5 ="INSERT INTO Responses (status, studentId, examQuestionId, answer, awardedpnts, comments, finalpnts) 
     VALUES
-    ('published', 'student300', '1', 'def hi():\n\treturn 0', NULL, NULL, NULL);";
+    ('published', 'student300', '20', 'def hi():\n\treturn 0', NULL, NULL, NULL)";
     $connect->query($sql5);
 
     $sql6 ="UPDATE Responses SET awardedpnts='0',comments='Good',finalpnts='0' WHERE studentId = 'student300'";
