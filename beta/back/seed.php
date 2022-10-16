@@ -22,7 +22,7 @@
         )";
     $connect->query($sql);
     
-    //inserting generic data
+    // Inserting generic data
     $sql2 = "INSERT INTO Logins (user, pass, position)
     VALUES 
     ('student300', 'ad335b5876f05f53d8635267d11a3255', 'student'),

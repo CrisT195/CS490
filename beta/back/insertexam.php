@@ -34,7 +34,6 @@
      VALUES
     ('1', '15', 'hi(1) == 0', 'hi(2) == 1', '1', '0', '$examnum')";
     $connect->query($sql4);
-
     }
     }
 
