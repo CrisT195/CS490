@@ -1,5 +1,5 @@
 <?php
-    // This is the file for the getting all exams
+    // This is the file for the getting all info on an exam joined with the student response
 
     // Establishing connection to SQL server
     $servername = "sql1.njit.edu";
@@ -12,24 +12,16 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $questionid = $_POST['questionid'];
         // Establishing variables
         $fields = array();
 
-        $sql3 = "SELECT * FROM Exam";
+        $sql3 = "SELECT * FROM Responses as r, Questionbank as q WHERE r.examQuestionId = q.id and r.examQuestionId = $questionid and r.studentId = $username";
         $result = $connect->query($sql3);
-        if ($result->num_rows >= 3)
-        {
+        if ($result->num_rows > 0) {
             $rows = $result->fetch_all(MYSQLI_ASSOC);
-            // This will determine the amount of exams,
-            // since each exam is 3 questions
-            $numquestions = 3;
-            $exams = intdiv(count($rows), $numquestions);
-            for ($i = 0; $i < $exams; $i++) {
-                $exam = [
-                "exam".($i+1)=> [$rows[$i],$rows[$i+1],$rows[$i+2]]
-                ];
-                array_push($fields, $exam);
-            }
+            $fields = $rows;
         }
 
         $myJSON = json_encode($fields);

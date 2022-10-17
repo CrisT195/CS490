@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/allexams.php";
+    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/checkteacherpublished.php";
     // Fields array to collect the previous information
     $fields = [];
     // Builds into a string from the array

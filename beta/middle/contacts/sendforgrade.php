@@ -1,12 +1,12 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input field
-    $username = $_POST['username'];
+    $response = $_POST['response'];
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/checkpublished.php";
+    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/grade.php";
     // Fields array to collect the previous information
     $fields = [
-        "username" => $username
+        "response" => $response
     ];
     // Builds into a string from the array
     $fields_string = http_build_query($fields);

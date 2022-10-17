@@ -1,9 +1,17 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // collect value of input field
+    $username = $_POST['username'];
+    $examqid = $_POST['examqid'];
+    $answer = $_POST['answer'];
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/allexams.php";
+    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/response.php";
     // Fields array to collect the previous information
-    $fields = [];
+    $fields = [
+      "username" => $username,
+      "examqid" => $examqid,
+      "answer" => $answer,
+    ];
     // Builds into a string from the array
     $fields_string = http_build_query($fields);
     // create a new cURL resource
