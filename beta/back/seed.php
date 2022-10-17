@@ -1,7 +1,7 @@
 <?php
     // You must run this file first with a newly created database!
 
-    // This file is only for backend dev to test the database
+    // This file is only for backend dev to test the database - only when new values are needed!
 
 
     // Establishing connection to SQL server

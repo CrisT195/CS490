@@ -3,11 +3,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input field
     $questions = $_POST['questions'];
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/insertexam.php";
+    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/allexams.php";
     // Fields array to collect the previous information
-    $fields = [
-        "questions" => $questions
-    ];
+    $fields = [];
     // Builds into a string from the array
     $fields_string = http_build_query($fields);
     // create a new cURL resource
