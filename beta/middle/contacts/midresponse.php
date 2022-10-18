@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $examqid = $_POST['examqid'];
     $answer = $_POST['answer'];
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/response.php";
+    $url = "https://afsaccess4.njit.edu/~nk553/CS490/response.php";
     // Fields array to collect the previous information
     $fields = [
       "username" => $username,

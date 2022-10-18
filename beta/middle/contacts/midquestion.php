@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $output1 = $_POST['output1'];
     $output2 = $_POST['output2'];
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/question.php";
+    $url = "https://afsaccess4.njit.edu/~nk553/CS490/question.php";
     // Fields array to collect the previous information
     $fields = [
         "question" => $question,

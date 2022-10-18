@@ -21,7 +21,7 @@ while ($questionindex < $questions) {
     $questionid = $decoded_data[$questionindex][$questionidindex];
     // Turn into imported function
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/fullexaminfo.php";
+    $url = "https://afsaccess4.njit.edu/~nk553/CS490/fullexaminfo.php";
     // Fields array to collect the previous information
     $fields = [
         "username" => $username,
@@ -128,7 +128,7 @@ while ($questionindex < $questions) {
     // echo $studentpoints;
     // Turn into imported function
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/awardresponsepnts.php";
+    $url = "https://afsaccess4.njit.edu/~nk553/CS490/awardresponsepnts.php";
     // Fields array to collect the previous information
     $fields = [
     "points" => implode(",",$pointsarray[$questionindex]),
