@@ -1,5 +1,8 @@
 <?php 
 session_start();
+if(isset($_SESSION['logout'])) {
+ session_destroy();
+}
 if((isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["user"]["role"] == "teacher")) {
  die(header("Location: instructor/instructorhome.php"));
 } elseif ((isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["user"]["role"] == "student")) {
@@ -30,6 +33,7 @@ if((isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["u
 
 
 <?php
+
 if (isset($_POST["username"]) && isset($_POST["password"])){
  $username = $_POST["username"];
  $password = hash("md5", $_POST["password"]);
@@ -46,11 +50,9 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
  $result = curl_exec($ch);
  curl_close($ch);
  $decoded_json = json_decode($result, true);
- // var_dump($decoded_json);
  if ($decoded_json['role'] == "student") {
   $_SESSION["user"]["role"] = "student";
   $_SESSION["user"]["name"] = $decoded_json['name'];
-  // var_dump($_SESSION);
   echo '<script>window.location.href="student/studenthome.php"</script>';
   die();
   
