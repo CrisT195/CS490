@@ -27,20 +27,21 @@ Afterwards, directs to 'createexam.php' to add pnts and test cases. -->
     <h2>Create an Exam</h2>
     
     <div class="table-responsive">
-          <table id="quesSelect" class="table table-striped">
-            <thead>
-              <tr>
-                <th class="col-md-1">id</th>
-                <th class="col-md-4">question</th>
-                <th class="col-md-1">difficulty</th>
-                <th class="col-md-1">category</th>
-              </tr>
-            </thead>
-            <tbody id="bank">
-            </tbody>
-          </table>
-          <input type="button" name="chooseQuestions" class="chooseQuestions btn btn-primary" value="choose questions"/>
-        </div>
+      <table id="quesSelect" class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-md-1">id</th>
+            <th class="col-md-4">question</th>
+            <th class="col-md-1">difficulty</th>
+            <th class="col-md-1">category</th>
+            <th class="col-md-1">test cases</th>
+          </tr>
+        </thead>
+        <tbody id="bank">
+        </tbody>
+      </table>
+      <input type="button" name="chooseQuestions" class="chooseQuestions btn btn-primary" value="choose questions"/>
+    </div>
     
     </div>
     <script>
@@ -50,12 +51,11 @@ Afterwards, directs to 'createexam.php' to add pnts and test cases. -->
         return res.json();
       }).then((data) => {
       
-      const q = data;
       // filling table with question bank
       var questionBank = "";
-      var obj = q["questions"];
+      var obj = data;
       for(var i in obj) {
-        questionBank += '<tr> <td class="col-md-1">' + obj[i]["id"] + '</td> <td class="col-md-1">' + obj[i]["description"] + '</td> <td class="col-md-2">' + obj[i]["difficulty"] + '</td> <td class="col-md-2">' + obj[i]["category"] + '</td> </tr>';
+        questionBank += '<tr> <td class="col-md-1">' + obj[i]["id"] + '</td> <td class="col-md-1">' + obj[i]["question"] + '</td> <td class="col-md-2">' + obj[i]["difficulty"] + '</td> <td class="col-md-2">' + obj[i]["category"] + '</td> <td class="col-md-2">' + obj[i]["testcase1"] + '; ' + obj[i]["testcase2"] + '</td> </tr>';
       }
       document.getElementById("bank").innerHTML = questionBank;
 
@@ -75,29 +75,22 @@ Afterwards, directs to 'createexam.php' to add pnts and test cases. -->
           $("#quesSelect tr.selected").each(function(){
             var ques = {};
             ques["id"] = $('td:eq(0)', this).html();
-            ques["description"] = $('td:eq(1)', this).html();
+            ques["question"] = $('td:eq(1)', this).html();
             ques["difficulty"] = $('td:eq(2)', this).html();
             ques["category"] = $('td:eq(3)', this).html();
+            ques["testcases"] = $('td:eq(4)', this).html();
+            // ques["testcase2"] = $('td:eq(5)', this).html();
             questions.push(ques);
           });
           selected["questions"] = questions;
-          alert(JSON.stringify(selected));
+          // alert(JSON.stringify(selected));
           // collect question data
           // redirect to edit page
 
-          let options = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(selected)
-          }
+          localStorage.setItem( 'selectedquestions',  JSON.stringify(selected) );
+          window.location.replace("createexam.php");
 
-          // let fetchRes = fetch("https://afsaccess4.njit.edu/~cth9/CS490/instructor/createexam.php", options);
-          // fetchRes.then(res =>
-          //   res.json()).then(d => {
-          //       console.log(d)
-          // });
+          // {questions: [{}, {}, {}]}
 
       });
     });
