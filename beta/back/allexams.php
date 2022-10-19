@@ -14,24 +14,26 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Establishing variables
         $fields = array();
-
-        $sql3 = "SELECT * FROM Exam";
+        $maxnumexams = 5;
+        for ($examnum = 1; $examnum < $maxnumexams; $examnum++) {
+        $sql3 = "SELECT * FROM Exam WHERE examnum = '$examnum'";
         $result = $connect->query($sql3);
         if ($result->num_rows >= 3)
         {
             $rows = $result->fetch_all(MYSQLI_ASSOC);
-            // This will determine the amount of exams,
-            // since each exam is 3 questions
-            $numquestions = 3;
-            $exams = intdiv(count($rows), $numquestions);
-            for ($i = 0; $i < $exams; $i++) {
-                $exam = [
-                "exam".($i+1)=> [$rows[$i],$rows[$i+1],$rows[$i+2]]
-                ];
-                array_push($fields, $exam);
+            // This will determine the amount of exams
+            $numrows = count($rows);
+            $examquestions = [
+                "exam".($examnum) => []
+            ];
+            $exam = array();
+            for ($i = 0; $i < $numrows; $i++) {
+                array_push($exam, $rows[$i]);
             }
+            array_push($examquestions["exam".($examnum)], $exam);
+            array_push($fields, $examquestions);
         }
-
+    }
         $myJSON = json_encode($fields);
         echo $myJSON;
     }
