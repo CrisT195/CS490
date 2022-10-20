@@ -15,7 +15,10 @@
         $fields = array();
         $sql = "SELECT COUNT(DISTINCT examnum) from Exam";
         $result = $connect->query($sql);
-        $fields = $result;
+        $row = $result->fetch_all();
+        // Access the first element of the array, a number
+        // SQL will return 0 automatically
+        $fields = $row[0];
 
         $myJSON = json_encode($fields);
         echo $myJSON;
