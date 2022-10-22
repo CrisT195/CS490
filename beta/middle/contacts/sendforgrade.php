@@ -3,7 +3,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input field
     $response = $_POST['response'];
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~nk553/CS490/grade.php";
+    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/grade.php";
     // Fields array to collect the previous information
     $fields = [
         "response" => $response
