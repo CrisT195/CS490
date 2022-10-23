@@ -8,7 +8,6 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 $json = file_get_contents('php://input');
 
 $data = json_decode($json);
-echo $json;
 
 $url = 'https://afsaccess4.njit.edu/~bjb38/CS490/midexam.php';
 $data_string = http_build_query($data); 
@@ -18,7 +17,6 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $result = curl_exec($ch);
 curl_close($ch);
-$decoded_json = json_decode($result, true);
 echo $result;
 
 ?>
