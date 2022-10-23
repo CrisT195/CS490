@@ -2,7 +2,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // collect value of input field
 $questions = $_POST['questions'];
-
+// $questions = [[16,"30"],[19,"30"],[20,"40"]];
 
 // Create function later
 // Get the number of exams
@@ -27,10 +27,10 @@ $response = curl_exec($ch);
 curl_close($ch);
 
 // Send back the full response - json as opposed to a string
-
 $data = json_decode($response);
 // Increase the examnum
-$examnum = $data[0] + 1;
+$examnum = intval($data[0]) + 1;
+
 // End import
     // Make a call to the backend to get the number of exams
     // Increment by 1, send that examnum
