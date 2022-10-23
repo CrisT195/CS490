@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     $questions = $_POST['questions'];
     $examnum = $_POST['examnum'];
-    $decoded_questions = json_decode($questions, true);
-    $examdata = $decoded_questions["exam"];
+    $decoded_questions = $questions;
+    $examdata = $decoded_questions;
     for ($i = 0;$i < count($examdata);$i++)
     {
         $examquestion = $examdata[$i];
