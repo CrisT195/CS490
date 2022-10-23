@@ -3,9 +3,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // collect value of input field
 $questions = $_POST['questions'];
 
+
 // Create function later
 // Get the number of exams
-$url = "https://afsaccess4.njit.edu/~bjb38/CS490/totalnumexam.php";
+$url = "https://afsaccess4.njit.edu/~nk553/CS490/totalnumexam.php";
 // Fields array to collect the previous information
 $fields = array();
 // Builds into a string from the array
@@ -26,16 +27,16 @@ $response = curl_exec($ch);
 curl_close($ch);
 
 // Send back the full response - json as opposed to a string
+
 $data = json_decode($response);
 // Increase the examnum
-$examnum = intval($data[0]) + 1;
-
+$examnum = $data[0] + 1;
 // End import
     // Make a call to the backend to get the number of exams
     // Increment by 1, send that examnum
 
     // url to change later
-    $url = "https://afsaccess4.njit.edu/~bjb38/CS490/insertexam.php";
+    $url = "https://afsaccess4.njit.edu/~nk553/CS490/insertexam.php";
 
     $fields = [
         "questions" => $questions,

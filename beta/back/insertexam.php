@@ -16,8 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     $questions = $_POST['questions'];
     $examnum = $_POST['examnum'];
-    $decoded_questions = json_decode($questions, true);
-    $examdata = $decoded_questions["questions"];
+
+    // $decoded_questions = json_decode($questions, true);
+    // $examdata = $decoded_questions["questions"];
+    $examdata = $questions;
     for ($i = 0;$i < count($examdata);$i++)
     {
         $examquestion = $examdata[$i];
@@ -29,5 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $connect->query($sql4);
     }
     $connect->close();
+    echo 1;
 }
 ?>
