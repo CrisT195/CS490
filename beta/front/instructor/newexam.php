@@ -87,8 +87,12 @@ Afterwards, directs to 'createexam.php' to add pnts and test cases. -->
           // collect question data
           // redirect to edit page
 
-          localStorage.setItem( 'selectedquestions',  JSON.stringify(selected) );
-          window.location.replace("createexam.php");
+          if (questions.length < 3 || questions.length > 5) {
+            alert("You must select 3-5 questions.");
+          } else {
+            localStorage.setItem( 'selectedquestions',  JSON.stringify(selected) );
+            window.location.replace("createexam.php");
+          }
 
           // {questions: [{}, {}, {}]}
 
