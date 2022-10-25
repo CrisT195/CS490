@@ -27,6 +27,7 @@
     VALUES 
     ('student300', 'ad335b5876f05f53d8635267d11a3255', 'student'),
     ('student400', '489a9991d3cbdd213e6d9a956bbd69d1', 'student'),
+    ('student500', 'e5a288c4be416eb85c5148bd52296639', 'student'),
     ('teacher200', 'f0f7816b455f0b5069f3326fc886a4be', 'teacher')";
     $connect->query($sql2);
 
