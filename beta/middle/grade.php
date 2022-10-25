@@ -5,8 +5,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // collect value of input field
 $response = $_POST['response'];
 $decoded_data = json_decode("$response", true);
+
 // $decoded_data = json_decode('[["unpublished","student300","16","def hi():\n\treturn 0",null,null,null],["unpublished","student300","19","def hi():\n\treturn 0",null,null,null]]');
-// $decoded_data = json_decode('[[ "unpublished", "student400", "16", "def hi(a):\n\treturn a", null, null, null],["unpublished", "student400", "21", "def test(a):\n\treturn 0", null, null, null],["unpublished", "student400", "20", "def hi(a):\n\treturn not a", null, null, null]]', true);
+// $decoded_data = json_decode("[[\"unpublished\",\"student300\",\"20\",\"def test(a):\\n\\treturn not a\",\"0,12.5,0\",null,null],[\"unpublished\",\"student300\",\"16\",\"def hi(a):\\n\\treturn a\",\"5,0,12.5\",null,null],[\"unpublished\",\"student300\",\"21\",\"def hi(a):\\n\\treturn 0\",\"5,17.5,17.5\",null,null]]", true);
 // var_dump($decoded_data);
 // print_r($decoded_data);
 // echo count($decoded_data);
@@ -46,6 +47,8 @@ while ($questionindex < $questions) {
     curl_close($ch);
     $fullexam = json_decode($response, true);
 // print_r($fullexam);
+// echo $fullexam["id"];
+// echo "<br>";
     // Import end
     // Get the total number of points and take away some points to reconstruct it later
     $studentpoints = 0;
@@ -70,6 +73,7 @@ while ($questionindex < $questions) {
         array_push($testcases, $fullexam["testcase"."$ti"]);
         ++$ti;
     }
+    // print_r($testcases);
     while (!is_null($fullexam["output"."$oi"])) {
         array_push($outputs, $fullexam["output"."$oi"]);
         ++$oi;
@@ -112,6 +116,8 @@ while ($questionindex < $questions) {
         array_push($pointsarray[$questionindex], $correctnamepoints);
         $studentpoints += $correctnamepoints;
     }
+    // echo $responsestr."<br>";
+
 
     $myfile = fopen("grade.py", "w") or die("Unable to open file!");
     // Write the python file with student response and test cases with newlines
@@ -141,7 +147,7 @@ while ($questionindex < $questions) {
         // so this converts it to real true/false
         // echo $answer."<br>";
         // Maybe convert both to filter var
-        if (filter_var($answer, FILTER_VALIDATE_BOOLEAN) == filter_var($outputs[$out_i], FILTER_VALIDATE_BOOLEAN)) {
+        if ($answer == $outputs[$out_i]) {
             $studentpoints += $testcasepoints;
             array_push($pointsarray[$questionindex], $testcasepoints);
         }
