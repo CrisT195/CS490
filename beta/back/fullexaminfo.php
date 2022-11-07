@@ -14,10 +14,11 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $questionid = $_POST['questionid'];
+    $examnum = $_POST['examnum'];
         // Establishing variables
         $fields = array();
 
-        $sql3 = "SELECT * FROM Responses as r, Exam as e, Questionbank as q WHERE r.examQuestionId = e.questionId and e.questionId = q.id and r.examQuestionId = $questionid and r.studentId = '$username'";
+        $sql3 = "SELECT * FROM Responses as r, Exam as e, Questionbank as q WHERE r.examQuestionId = e.questionId and e.questionId = q.id and r.examQuestionId = $questionid and r.studentId = '$username' and r.exam = $examnum";
         $result = $connect->query($sql3);
         if ($result->num_rows > 0) {
             $rows = $result->fetch_assoc();

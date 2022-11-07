@@ -16,7 +16,7 @@
         // Establishing variables
         $fields = array();
 
-        $sql3 = "SELECT * FROM Responses WHERE status = 'unpublished'";
+        $sql3 = "SELECT * FROM Responses as r, Exam as e, Questionbank as q WHERE r.examQuestionId = e.questionId and e.questionId = q.id and r.status = 'unpublished'";
         $result = $connect->query($sql3);
         if ($result->num_rows > 0) {
             $rows = $result->fetch_all();

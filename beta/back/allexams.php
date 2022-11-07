@@ -18,7 +18,7 @@
         for ($examnum = 1; $examnum < $maxnumexams; $examnum++) {
         $sql3 = "SELECT * FROM Exam AS e, Questionbank AS q WHERE e.examnum = '$examnum' AND q.id = e.questionId";
         $result = $connect->query($sql3);
-        if ($result->num_rows >= 3)
+        if ($result->num_rows >= 1)
         {
             $rows = $result->fetch_all(MYSQLI_ASSOC);
             // This will determine the amount of exams

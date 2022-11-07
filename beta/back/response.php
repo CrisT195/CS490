@@ -16,11 +16,12 @@
         $studentId = $_POST['username'];
         $examqid = $_POST['examqid'];
         $answer = $_POST['answer'];
+        $examnum = $_POST['examnum'];
 
 
-        $sql3 = "INSERT INTO Responses (status, studentId, examQuestionId, answer)
+        $sql3 = "INSERT INTO Responses (status, studentId, examQuestionId, answer, exam)
         VALUES
-       ('unpublished','$studentId', '$examqid', '$answer')";
+       ('unpublished','$studentId', '$examqid', '$answer', '$examnum')";
        $connect->query($sql3);
     }
     $connect->close();
