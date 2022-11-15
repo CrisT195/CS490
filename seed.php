@@ -42,12 +42,12 @@
     ('20', '15', '1')";
     $connect->query($sql4);
 
-    $sql5 ="INSERT INTO Responses (status, studentId, examQuestionId, answer, awardedpnts, comments, finalpnts) 
+    $sql5 ="INSERT INTO Responses (status, studentId, examQuestionId, answer, awardedpnts, comments, finalpnts, exam) 
     VALUES
-    ('published', 'student300', '20', 'def hi():\n\treturn 0', NULL, NULL, NULL)";
+    ('published', 'student300', '20', 'def hi():\n\treturn 0', NULL, NULL, NULL, 1)";
     $connect->query($sql5);
 
-    $sql6 ="UPDATE Responses SET awardedpnts='0',comments='Good',finalpnts='0' WHERE studentId = 'student300'";
+    $sql6 ="UPDATE Responses SET awardedpnts='0',comments='Good',finalpnts='0' WHERE studentId = 'student300' AND exam = 1";
     $connect->query($sql6);
 
     echo "Seed created";

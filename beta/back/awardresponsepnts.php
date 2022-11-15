@@ -18,9 +18,10 @@
         $examqid = $_POST['examqid'];
         $examnum = $_POST['examnum'];
         $totalpnts = $_POST['allocated'];
+        $answerout = $_POST['answeroutput'];
 
 
-        $sql6 ="UPDATE Responses SET awardedpnts='$points', finalpnts='$totalpnts' WHERE studentId = '$studentId' and examQuestionId = '$examqid' and exam = $examnum";
+        $sql6 ="UPDATE Responses SET awardedpnts='$points', finalpnts='$totalpnts' WHERE studentId = '$studentId' and examQuestionId = '$examqid' and exam = $examnum and answeroutput = $answerout";
         $connect->query($sql6);
     }
     $connect->close();
