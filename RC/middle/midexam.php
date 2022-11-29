@@ -28,9 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   ];
   $response = call($url, $fields);
 
-  // close cURL resource, and free up system resources
-  curl_close($ch);
-
   // Send back the full response - json as opposed to a string
   echo $response;
 }
