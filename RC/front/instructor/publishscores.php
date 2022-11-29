@@ -57,23 +57,32 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 			});
 
 
-
 			fetch("https://afsaccess4.njit.edu/~cth9/CS490/instructor/studentresponses.php").then((res) => {
-        return res.json();
-      }).then((data2) => {
+        	return res.json();
+      	}).then((data2) => {
         console.log(data2);
         var ob = [];
-				// console.log("student un: " + studentUN);
-				ob = [];
-        for (let i in data2) {
-          if (data2[i][2] == studentUN) {
-            ob.push(data2[i]);
-          }
-        }
+		for (let i in data2) {
+          let exam = data2[i];
+          for (let i in exam) {
+            let usernames = exam[i];
+            for (let i in usernames) {
+				responses = usernames[i];
+				for (let i in responses) {
+					if (i == studentUN) {
+						individualResponses = responses[i];
+						for (let i in individualResponses) {
+							ob.push(individualResponses[i]);
+						}
+					}
+				}
+			  }
+			}
+		}
         console.log(ob); // [['4', 'unpublished', 'student300', '20', 'def (hi):\n\treturn 0', '5,-2.5,-2.5', null, null], [], ...]
 
 
-				// console.log(myData);
+				console.log(myData);
 				var quesKeys = [];
 				for (let i in myData) {
 					quesKeys.push(myData[i][2]);
@@ -94,8 +103,48 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 					console.log(obj); // 16: {id: '16', question: 'Define hi', difficulty: 'Easy', category: 'Loops', testcase1: 'hi(1) == 0'
 					var examresponse = "";
 					for (let i in ob) {
-						let pnts = ob[i][5].split(','); 
-						examresponse += '<div> <h4>' + Number(Number(i)+1) + ') ' + obj[myData[i][2]]['question'] + '</h4>	<div class="container-fluid">	<div class="row">	<div class="col-lg-6"><p style="white-space:pre;">' + ob[i][4] + '</p>	</div>	<div class="col-lg-6">	<table class="table table-striped">	<thead>	<tr>	<th class="col-md-3">test case</th>	<th class="col-md-1">points</th>	</tr>	</thead>	<tbody >	<tr>	<td>function name</td>	<td><input type="text" name="tc2" id="' + i + 'pnt0" value="'+ pnts[0] +'"></td>	</tr>	<tr>	<td>' + obj[ob[i][3]]['testcase1'] + '</td>	<td><input type="text" name="tc2" id="' + i + 'pnt1" value="'+ pnts[1] +'"></td>	</tr> <tr> <td>' + obj[ob[i][3]]['testcase2'] + '</td> <td><input type="text" name="tc2" id="' + i + 'pnt2" value="'+ pnts[2] +'"></td> </tr> </tbody> </table> </div> </div> <label for="cmts' + i + '">Comments:</label> <textarea id="cmts' + i + '" name="w3review" rows="4" cols="50"></textarea> </div> </div><br><br>';
+						let earnedpnts = ob[i][5].split(','); 
+						let finalpnts = ob[i][7].split(',');					
+						
+						let funcname = obj[myData[i][2]]['testcase1'];
+						let expecFuncName = funcname.substring(0, funcname.indexOf('('));
+						let funcname2 = ob[i][4];
+						let actualFuncName = funcname2.substring(4, funcname2.indexOf("("));
+						
+						let testCases = ob[i].slice(18,23);
+						let testCaseOutputs = ob[i].slice(23,28);
+						let userOutputs = ob[i][9].split(',');
+						testCases = testCases.filter(element => {
+  							return element !== null;
+						});
+						testCaseOutputs = testCaseOutputs.filter(element => {
+  							return element !== null;
+						});
+
+						examresponse += '<div> <h4>' + Number(Number(i)+1) + ') ' + obj[myData[i][2]]['question'] + '</h4>	<div class="container-fluid">	<div class="row">	<div class="col-lg-6"><p style="white-space:pre;">' + ob[i][4] + '</p>	</div>	<div class="col-lg-6">	<table class="table table-striped">	<thead>	<tr>	<th class="col-md-1">Cases</th>	<th class="col-md-1">Expected Result</th> <th class="col-md-1">Actual Result</th> <th class="col-md-1">Points Worth</th>	<th class="col-md-1">Points Earned</th></tr> </thead> <tbody> <tr> <td>Function Name</td> <td>' + expecFuncName + '</td> <td>' + actualFuncName + '</td> <td>' + finalpnts[0] +  '</td> <td><input type="text" name="tc2" id="' + i + 'pnt0" value="' + earnedpnts[0] +'"></td></tr><tr>';
+
+						earnedpnts.shift();
+						finalpnts.shift();
+						let j = 1;
+						for (let x in testCases) {
+							examresponse += '<td>' + testCases[x] + '</td> <td>' + testCaseOutputs[x] + '</td> <td>' + userOutputs[x] + '</td><td>' + finalpnts[x] + '</td> <td><input type="text" name="tc2" id="' + i + 'pnt' + j + '" value="'+ earnedpnts[x] +'"></td></tr><tr>';
+							j++;
+						}
+
+						if (obj[myData[i][2]]['constraint'] != null) {
+							if (earnedpnts[earnedpnts.length - 1] == 3) {
+								examresponse += '<td>Constraint</td> <td>' + obj[myData[i][2]]['constraint'] + '</td> <td>' + obj[myData[i][2]]['constraint'] + '</td><td>' + finalpnts[finalpnts.length-1] + '</td><td>' + earnedpnts[earnedpnts.length-1] + '</td> </tr></tbody></table>';
+							}
+							else if (earnedpnts[earnedpnts.length - 1] == 0) {
+								examresponse += '<td>Constraint</td> <td>' + obj[myData[i][2]]['constraint'] + '</td> <td>none</td> <td>' + finalpnts[finalpnts.length-1] + '</td><td>' + earnedpnts[earnedpnts.length-1] + '</td> </tr></tbody></table>';
+							}
+						}
+						else {
+							examresponse += '</tr></tbody></table>';
+						}
+
+						examresponse += '</div> </div> <label for="cmts' + i + '">Comments:</label> <textarea id="cmts' + i + '" name="w3review" rows="4" cols="50"></textarea> </div> </div><br><br>';
+						
 					}
 					document.getElementById("examresponse").innerHTML = examresponse;
 					let pntsum = 0;
@@ -119,8 +168,15 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 						console.log(ob); // [['4', 'unpublished', 'student300', '20', 'def (hi):\n\treturn 0', '5,-2.5,-2.5', null, null], [], ...]
 						for (let i in ob) {
 							let sendarr = new Object();
-							let pntStr = document.getElementById(i + "pnt0").value + ','+ document.getElementById(i + "pnt1").value + ',' + document.getElementById(i + "pnt2").value;
-							sendarr['points'] = pntStr;
+							pntsStr = "";
+							let finalpnts = ob[i][7].split(',');
+							if (finalpnts[finalpnts.length -1] == "N") {
+								finalpnts.pop();
+								for (let x = 0; x < finalpnts.length; x++) {
+									pntsStr += document.getElementById(i + "pnt" + x).value + ","
+								}
+							}
+							sendarr['points'] = pntsStr;
 							sendarr['studentId'] = ob[i][2];
 							sendarr['examqid'] = ob[i][3];
 							sendarr['comments'] = document.getElementById("cmts" + i).value;
@@ -139,7 +195,7 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 							});
 						}
 						// {points:"", studentId: "", examqid: "", comments: ""}
-						window.location.replace("instructorhome.php");
+						//window.location.replace("instructorhome.php");
 					});
 
 				});
@@ -161,7 +217,6 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 	["5","unpublished","student300","16","def (hi):\n\treturn 0",null,null,null],
 	["6","unpublished","student300","21","def (hi):\n\treturn 0",null,null,null]
 ]
-
 obj (questions):
 16: {id:'16', question:'Define hi', ...}
 -->
