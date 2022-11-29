@@ -6,7 +6,7 @@
 
  $json = file_get_contents('php://input');
  $data = json_decode($json);
- $question = array("username" => $_SESSION["user"]["name"], "examqid" => $data->examqid, "answer" => $data->answer);
+ $question = array("username" => $_SESSION["user"]["name"], "examqid" => $data->examqid, "answer" => $data->answer, "examnum" => $data->examnum);
  // echo json_encode($question);
  // echo json_encode($json);
 
