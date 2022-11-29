@@ -132,6 +132,7 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 
             // TODO: update, include examnum?
             var quesObj = {
+              "examnum": data[i]["examnum"],
               "examqid": data[i]["questionId"],
               "answer": temp//JSON.stringify(temp)
             };
