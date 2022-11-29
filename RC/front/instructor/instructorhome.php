@@ -170,24 +170,27 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
         }
         console.log(ob); // {Exam1:{student300:[]}}
 
-        
+        var studentresponses = "";
         for (let i in ob) {
-          var studentresponses = "";
           let examnum = i;
           let usernames = ob[i];
-          for(let x in usernames) {
-            let user = usernames[x];
-            for (j in user) {
-              studentresponses += '<tr> <td class="col-md-1">' + examnum + '</td> <td class="col-md-1">' + j + '</td> <td class="col-md-1"><input id="grade' + x + '" class="btn btn-primary" type="submit" name="studentresponse" value="Start auto grade"></td> </tr>';
+          for(let j in usernames) {
+            let user = usernames[j];
+            for (k in user) {
+              studentresponses += '<tr> <td class="col-md-1">' + examnum + '</td> <td class="col-md-1">' + k + '</td> <td class="col-md-1"><input id= ' + examnum + 'grade' + k + '" class="btn btn-primary" type="submit" name="studentresponse" value="Start auto grade"></td> </tr>';
             }
           }
           document.getElementById("studentresponses").innerHTML = studentresponses;
-          for (let k in usernames) {
-            let user = usernames[k];
-            for (let z in user) {
-              document.getElementById("grade" + k).addEventListener('click', function(e){
+        }
+        for (let i in ob) {
+          let examnum = i;
+          let usernames = ob[i];
+          for(let j in usernames) {
+            let user = usernames[j];
+            for (k in user) {
+              document.getElementById(examnum + 'grade' + k).addEventListener('click', function(e){
                 console.log("grade " + i + " was clicked");
-                localStorage.setItem('gradeexam', JSON.stringify(user[z]));
+                localStorage.setItem('gradeexam', JSON.stringify(user[k]));
                 window.location.href='publishscores.php';
               });
             }
