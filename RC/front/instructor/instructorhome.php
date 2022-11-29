@@ -158,7 +158,13 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
             let examnum = i;
             let usernames = exam[i];
             for (let i in usernames) {
-              ob[examnum] = usernames[i];
+              if (!ob[examnum]) {
+                ob[examnum] = []
+                ob[examnum].push(usernames[i]);
+              }
+              else {
+                ob[examnum].push(usernames[i]);
+              }
             }
           }
         }
@@ -169,16 +175,22 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
           var studentresponses = "";
           let examnum = i;
           let usernames = ob[i];
-          for(let i in usernames) {
-            studentresponses += '<tr> <td class="col-md-1">' + examnum + '</td> <td class="col-md-1">' + i + '</td> <td class="col-md-1"><input id="grade' + i + '" class="btn btn-primary" type="submit" name="studentresponse" value="Start auto grade"></td> </tr>';
+          for(let x in usernames) {
+            let user = usernames[x];
+            for (j in user) {
+              studentresponses += '<tr> <td class="col-md-1">' + examnum + '</td> <td class="col-md-1">' + j + '</td> <td class="col-md-1"><input id="grade' + x + '" class="btn btn-primary" type="submit" name="studentresponse" value="Start auto grade"></td> </tr>';
+            }
           }
           document.getElementById("studentresponses").innerHTML = studentresponses;
-          for (let i in usernames) {
-            document.getElementById("grade" + i).addEventListener('click', function(e){
-              console.log("grade " + i + " was clicked");
-              localStorage.setItem('gradeexam', JSON.stringify(usernames[i]));
-              window.location.href='publishscores.php';
-            });
+          for (let k in usernames) {
+            let user = usernames[k];
+            for (let z in user) {
+              document.getElementById("grade" + k).addEventListener('click', function(e){
+                console.log("grade " + i + " was clicked");
+                localStorage.setItem('gradeexam', JSON.stringify(user[z]));
+                window.location.href='publishscores.php';
+              });
+            }
           }
         }
       });
