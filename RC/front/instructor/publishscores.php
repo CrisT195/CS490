@@ -33,7 +33,7 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 
 		<script>
 			var myData = JSON.parse(localStorage['gradeexam']);
-      localStorage.removeItem( 'gradeexam' );
+      		localStorage.removeItem( 'gradeexam' );
 			console.log(myData);
 			for (let i in myData) {
 				myData[i] = myData[i].slice(1);
@@ -113,7 +113,7 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 						
 						let testCases = ob[i].slice(18,23);
 						let testCaseOutputs = ob[i].slice(23,28);
-						let userOutputs = ob[i][9].split(',');
+						let userOutputs = ob[i][9].split('/');
 						testCases = testCases.filter(element => {
   							return element !== null;
 						});
@@ -131,16 +131,16 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 							j++;
 						}
 
-						if (obj[myData[i][2]]['constraint'] != null) {
+						if (obj[myData[i][2]]['constrain'] != null) {
 							if (earnedpnts[earnedpnts.length - 1] == 3) {
-								examresponse += '<td>Constraint</td> <td>' + obj[myData[i][2]]['constraint'] + '</td> <td>' + obj[myData[i][2]]['constraint'] + '</td><td>' + finalpnts[finalpnts.length-1] + '</td><td>' + earnedpnts[earnedpnts.length-1] + '</td> </tr></tbody></table>';
+								examresponse += '<td>Constraint</td> <td>' + obj[myData[i][2]]['constrain'] + '</td> <td>' + obj[myData[i][2]]['constrain'] + '</td><td>' + finalpnts[finalpnts.length-1] + '</td> <td><input type="text" name="tc2" id="' + 7 + 'pnt' + 7 + '" value="'+ earnedpnts[earnedpnts.length-1] +'"></td></tr></tbody></table>';
 							}
 							else if (earnedpnts[earnedpnts.length - 1] == 0) {
-								examresponse += '<td>Constraint</td> <td>' + obj[myData[i][2]]['constraint'] + '</td> <td>none</td> <td>' + finalpnts[finalpnts.length-1] + '</td><td>' + earnedpnts[earnedpnts.length-1] + '</td> </tr></tbody></table>';
+								examresponse += '<td>Constraint</td> <td>' + obj[myData[i][2]]['constrain'] + '</td> <td>failed</td> <td>' + finalpnts[finalpnts.length-1] + '</td> <td><input type="text" name="tc2" id="' + 7 + 'pnt' + 7 + '" value="'+ earnedpnts[earnedpnts.length-1] +'"></td></tr></tbody></table>';
 							}
 						}
 						else {
-							examresponse += '</tr></tbody></table>';
+							examresponse += '<td>Constraint</td> <td>No Constraint</td> <td>No Constraint</td> <td>0</td> <td>0</td> </tr></tbody></table>';
 						}
 
 						examresponse += '</div> </div> <label for="cmts' + i + '">Comments:</label> <textarea id="cmts' + i + '" name="w3review" rows="4" cols="50"></textarea> </div> </div><br><br>';
@@ -173,8 +173,16 @@ if(!(isset($_SESSION["user"]) && isset($_SESSION["user"]["role"]) && $_SESSION["
 							if (finalpnts[finalpnts.length -1] == "N") {
 								finalpnts.pop();
 								for (let x = 0; x < finalpnts.length; x++) {
-									pntsStr += document.getElementById(i + "pnt" + x).value + ","
+									pntsStr += document.getElementById(i + "pnt" + x).value + ",";
 								}
+								pntsStr += "N";
+							}
+							else {
+								finalpnts.pop();
+								for (let x = 0; x < finalpnts.length; x++) {
+									pntsStr += document.getElementById(i + "pnt" + x).value + ",";
+								}
+								pntsStr += document.getElementById(7 + "pnt" + 7).value;
 							}
 							sendarr['points'] = pntsStr;
 							sendarr['studentId'] = ob[i][2];
