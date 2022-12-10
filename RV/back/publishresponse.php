@@ -19,7 +19,7 @@
         $comments = $_POST['comments'];
         $examnum = $_POST['examnum'];
 
-        $sql6 ="UPDATE Responses SET status='published',awardedpnts='$points',comments='$comments' WHERE studentId = '$studentId' and examQuestionId = '$examqid' exam = '$examnum'";
+        $sql6 ="UPDATE Responses SET status='published',awardedpnts='$points',comments='$comments' WHERE studentId = '$studentId' and examQuestionId = '$examqid' and exam = '$examnum'";
         $connect->query($sql6);
     }
     $connect->close();
