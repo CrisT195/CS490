@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $output4 = $_POST['output4'];
     $output5 = $_POST['output5'];
     $constraint = $_POST['constraint'];
-
+ 
     $url = "https://afsaccess4.njit.edu/~bjb38/CS490/question.php";
     // Fields array to collect the previous information
     $fields = [
