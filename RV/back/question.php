@@ -21,10 +21,12 @@
         $output1 = $_POST['output1'];
         $output2 = $_POST['output2'];
         $constraint = $_POST['constraint'];
-        // This has to be constrain as constraint is a built-in word
+        $constraint = var_dump($constraint);
+        echo $constraint;
 $sql3 = "INSERT INTO Questionbank (question, difficulty, category, testcase1, testcase2, output1, output2, extras)
         VALUES
-       ('$question', '$difficulty', '$category', '$testcase1', '$testcase2', '$output1', '$output2', '$constraint')";
+       ('$question', '$difficulty', '$category', '$testcase1', '$testcase2', '$output1', '$output2', $constraint)";
+       echo $sql3;
        $connect->query($sql3);
 
     //    This is based on the assumption that output will always be defined
